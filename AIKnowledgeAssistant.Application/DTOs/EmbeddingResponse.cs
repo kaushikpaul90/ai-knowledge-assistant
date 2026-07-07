@@ -1,0 +1,1 @@
+public record EmbeddingResponse(float[] Embedding);

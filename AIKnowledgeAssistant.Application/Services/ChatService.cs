@@ -14,7 +14,7 @@ public sealed class ChatService : IChatService
 
     public async Task<ChatResponse> AskAsync(ChatRequest request)
     {
-        var answer = await _aiClient.GetCompletionAsync(request.Question);
+        var answer = await _aiClient.GetChatCompletionAsync(request.Question);
         return new ChatResponse(answer);
     }
 }

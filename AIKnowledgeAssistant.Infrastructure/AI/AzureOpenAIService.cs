@@ -19,7 +19,7 @@ public sealed class AzureOpenAIService : IAIClient
         _chatClient = client.GetChatClient(settings.ChatDeployment);
     }
 
-    public async Task<string> GetCompletionAsync(string prompt)
+    public async Task<string> GetChatCompletionAsync(string prompt)
     {
         ChatCompletion completion = await _chatClient.CompleteChatAsync(
             new ChatMessage[]
@@ -29,5 +29,10 @@ public sealed class AzureOpenAIService : IAIClient
             }
         );
         return completion.Content[0].Text;
+    }
+
+    public Task<float[]> GetEmbeddingAsync(string text)
+    {
+        throw new NotImplementedException();
     }
 }

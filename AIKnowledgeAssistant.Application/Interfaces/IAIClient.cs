@@ -2,5 +2,13 @@ namespace AIKnowledgeAssistant.Application.Interfaces;
 
 public interface IAIClient
 {
-    Task<string> GetCompletionAsync(string prompt);
+    /// <summary>
+    /// Generates a chat completion.
+    /// </summary>
+    Task<string> GetChatCompletionAsync(string prompt);
+
+    /// <summary>
+    /// Generates an embedding vector.
+    /// </summary>
+    Task<float[]> GetEmbeddingAsync(string text);
 }
