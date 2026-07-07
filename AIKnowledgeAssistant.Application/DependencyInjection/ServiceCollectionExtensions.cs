@@ -13,6 +13,8 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IEmbeddingService, EmbeddingService>();
 
+        services.AddScoped<IDocumentIndexer, DocumentIndexer>();
+
         return services;
     }
 }
