@@ -2,5 +2,5 @@ namespace AIKnowledgeAssistant.Application.Interfaces;
 
 public interface IDocumentChunker
 {
-    IReadOnlyList<string> Chunk(string document, int chunkSize = 500, int overlap = 100);
+    IReadOnlyList<DocumentChunk> Chunk(string document, int maxChunkLength = 500, int overlapSentences = 1);
 }

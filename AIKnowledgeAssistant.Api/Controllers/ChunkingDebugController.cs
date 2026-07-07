@@ -21,13 +21,6 @@ public class ChunkingDebugController : ControllerBase
 
         var chunks = _documentChunker.Chunk(document, 50, 10);
 
-        return Ok(
-            chunks.Select((chunk, index) => new
-            {
-                ChunkNumber = index + 1,
-                Length = chunk.Length,
-                Content = chunk
-            })
-        );
+        return Ok(chunks);
     }
 }

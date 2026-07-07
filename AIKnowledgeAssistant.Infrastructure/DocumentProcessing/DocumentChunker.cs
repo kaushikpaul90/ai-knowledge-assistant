@@ -4,25 +4,58 @@ namespace AIKnowledgeAssistant.Infrastructure.DocumentProcessing;
 
 public sealed class DocumentChunker : IDocumentChunker
 {
-    public IReadOnlyList<string> Chunk(string document, int chunkSize = 500, int overlap = 100)
+    public IReadOnlyList<DocumentChunk> Chunk(string document, int maxChunkLength = 500, int overlapSentences = 1)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(document);
 
-        if (chunkSize <= overlap)
-        {
-            throw new ArgumentNullException("Chunk size must be larger than overlap.");
-        }
+        var sentences = SplitIntoSentences(document);
 
         var chunks = new List<string>();
-        var start = 0;
 
-        while (start <= document.Length)
+        var currentChunk = new List<string>();
+
+        var currentLength = 0;
+
+        foreach (var sentence in sentences)
         {
-            var length = Math.Min(chunkSize, document.Length - start);
-            chunks.Add(document.Substring(start, length));
-            start += chunkSize - overlap;
+            if (currentLength + sentence.Length > maxChunkLength &&
+                currentChunk.Count > 0)
+            {
+                chunks.Add(string.Join(" ", currentChunk));
+
+                currentChunk = currentChunk
+                    .TakeLast(overlapSentences)
+                    .ToList();
+
+                currentLength = currentChunk.Sum(x => x.Length);
+            }
+
+            currentChunk.Add(sentence);
+
+            currentLength += sentence.Length;
         }
 
-        return chunks;
+        if (currentChunk.Count > 0)
+        {
+            chunks.Add(string.Join(" ", currentChunk));
+        }
+
+        return chunks
+                .Select((chunk, index) => new DocumentChunk
+                {
+                    ChunkNumber = index + 1,
+                    Content = chunk
+                })
+                .ToList();
+    }
+
+    private static List<string> SplitIntoSentences(string text)
+    {
+        return text
+            .Split(
+                new[] { ". ", "? ", "! " },
+                StringSplitOptions.RemoveEmptyEntries)
+            .Select(s => s.Trim() + ".")
+            .ToList();
     }
 }
