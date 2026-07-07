@@ -1,1 +1,3 @@
-public record EmbeddingResponse(float[] Embedding);
+namespace AIKnowledgeAssistant.Application.DTOs;
+
+public sealed record EmbeddingResponse(float[] Embedding);

@@ -1,6 +1,8 @@
+using AIKnowledgeAssistant.Application.DTOs;
+
 namespace AIKnowledgeAssistant.Application.Interfaces;
 
 public interface IEmbeddingService
 {
-    Task<float[]> GenerateAsync(string text);
+    Task<EmbeddingResponse> GenerateAsync(EmbeddingRequest request);
 }

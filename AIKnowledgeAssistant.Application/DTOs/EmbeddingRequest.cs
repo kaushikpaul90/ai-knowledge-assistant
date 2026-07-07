@@ -1,1 +1,3 @@
-public record EmbeddingRequest(string Text);
+namespace AIKnowledgeAssistant.Application.DTOs;
+
+public sealed record EmbeddingRequest(string Text);
