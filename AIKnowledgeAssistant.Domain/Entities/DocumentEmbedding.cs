@@ -1,8 +1,12 @@
+namespace AIKnowledgeAssistant.Domain.Entities;
+
 public sealed class DocumentEmbedding
 {
-    public Guid ID { get; init; }
-    public string Content { get; init; } = string.Empty;
-    public float[] Vector { get; init; } = [];
-    public Dictionary<string, string> Metadata { get; init; } = [];
+    public Guid Id { get; init; } = Guid.NewGuid();
 
+    public required string Content { get; init; }
+
+    public required float[] Vector { get; init; }
+
+    public Dictionary<string, string> Metadata { get; init; } = new();
 }

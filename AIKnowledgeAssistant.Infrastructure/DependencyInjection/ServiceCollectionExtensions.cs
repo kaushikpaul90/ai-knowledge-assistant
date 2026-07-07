@@ -18,6 +18,7 @@ public static class ServiceCollectionExtensions
         );
 
         services.AddSingleton<IAIClient, AzureOpenAIService>();
+        services.AddSingleton<IVectorStore, InMemoryVectorStore>();
 
         return services;
     }
