@@ -19,6 +19,7 @@ public static class ServiceCollectionExtensions
 
         services.AddSingleton<IAIClient, AzureOpenAIService>();
         services.AddSingleton<IVectorStore, InMemoryVectorStore>();
+        services.AddSingleton<ISimilarityCalculator, CosineSimilarityCalculator>();
 
         return services;
     }
