@@ -1,6 +1,8 @@
 using AIKnowledgeAssistant.Application.Interfaces;
 using AIKnowledgeAssistant.Infrastructure.AI;
 using AIKnowledgeAssistant.Infrastructure.Configuration;
+using AIKnowledgeAssistant.Infrastructure.DocumentProcessing;
+using AIKnowledgeAssistant.Infrastructure.Similarity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,6 +22,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IAIClient, AzureOpenAIService>();
         services.AddSingleton<IVectorStore, InMemoryVectorStore>();
         services.AddSingleton<ISimilarityCalculator, CosineSimilarityCalculator>();
+        services.AddSingleton<IDocumentChunker, DocumentChunker>();
 
         return services;
     }

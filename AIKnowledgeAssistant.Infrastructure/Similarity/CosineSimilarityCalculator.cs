@@ -1,5 +1,7 @@
 using AIKnowledgeAssistant.Application.Interfaces;
 
+namespace AIKnowledgeAssistant.Infrastructure.Similarity;
+
 public sealed class CosineSimilarityCalculator : ISimilarityCalculator
 {
     public double Calculate(float[] vectorA, float[] vectorB)
