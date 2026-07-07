@@ -1,4 +1,5 @@
 using AIKnowledgeAssistant.Application.Interfaces;
+using AIKnowledgeAssistant.Infrastructure.AI;
 using AIKnowledgeAssistant.Infrastructure.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

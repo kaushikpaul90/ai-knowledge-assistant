@@ -4,10 +4,13 @@ using Azure;
 using Azure.AI.OpenAI;
 using Microsoft.Extensions.Options;
 using OpenAI.Chat;
+using OpenAI.Embeddings;
 
+namespace AIKnowledgeAssistant.Infrastructure.AI;
 public sealed class AzureOpenAIService : IAIClient
 {
     private readonly ChatClient _chatClient;
+    private readonly EmbeddingClient _embeddingClient;
 
     public AzureOpenAIService(IOptions<AzureOpenAIOptions> options)
     {
@@ -17,6 +20,7 @@ public sealed class AzureOpenAIService : IAIClient
             new AzureKeyCredential(settings.ApiKey)
         );
         _chatClient = client.GetChatClient(settings.ChatDeployment);
+        _embeddingClient = client.GetEmbeddingClient(settings.EmbeddingDeployment);
     }
 
     public async Task<string> GetChatCompletionAsync(string prompt)
@@ -31,8 +35,10 @@ public sealed class AzureOpenAIService : IAIClient
         return completion.Content[0].Text;
     }
 
-    public Task<float[]> GetEmbeddingAsync(string text)
+    public async Task<float[]> GetEmbeddingAsync(string text)
     {
-        throw new NotImplementedException();
+        OpenAIEmbedding embedding = await _embeddingClient.GenerateEmbeddingAsync(text);
+        
+        return embedding.ToFloats().ToArray();
     }
 }
