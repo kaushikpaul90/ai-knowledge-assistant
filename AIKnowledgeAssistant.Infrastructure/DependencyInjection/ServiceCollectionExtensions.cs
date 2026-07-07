@@ -1,6 +1,5 @@
 using AIKnowledgeAssistant.Application.Interfaces;
 using AIKnowledgeAssistant.Application.Services;
-using AIKnowledgeAssistant.Infrastructure.AI;
 using AIKnowledgeAssistant.Infrastructure.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,7 +17,7 @@ public static class ServiceCollectionExtensions
             configuration.GetSection(AzureOpenAIOptions.SectionName)
         );
 
-        services.AddHttpClient<IAIClient, AzureOpenAIClient>();
+        services.AddSingleton<IAIClient, AzureOpenAIService>();
         services.AddScoped<IChatService, ChatService>();
 
         return services;
