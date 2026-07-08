@@ -45,7 +45,10 @@ public sealed class RagService : IRagService
         // Step 4: Ask the LLM
         var answer = await _aiClient.GetChatCompletionAsync(prompt);
 
-        // Step 5: Return answer + sources
-        return new RagResponse(answer, documents.Select(x => x.Document.Content).ToList());
+        // Step 5: Determine highest score
+        var highestScore = documents.Any() ? documents.Max(x => x.Score) : 0;
+
+        // Step 6: Return answer + sources
+        return new RagResponse(answer, documents.Select(x => x.Document.Content).ToList(), highestScore);
     }
 }

@@ -4,7 +4,7 @@ namespace AIKnowledgeAssistant.Infrastructure.Prompting;
 
 public sealed class PromptBuilder : IPromptBuilder
 {
-    public string BuildPrompt(string question, IReadOnlyList<string> context)
+    public string BuildPrompt(string question, IReadOnlyList<SearchResult> context)
     {
         string prompt = $"""
             You are an enterprise AI assistant.

@@ -1,3 +1,4 @@
+using AIKnowledgeAssistant.Application.Configuration;
 using AIKnowledgeAssistant.Application.Interfaces;
 using AIKnowledgeAssistant.Infrastructure.AI;
 using AIKnowledgeAssistant.Infrastructure.Configuration;
@@ -25,6 +26,8 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ISimilarityCalculator, CosineSimilarityCalculator>();
         services.AddSingleton<IDocumentChunker, DocumentChunker>();
         services.AddSingleton<IPromptBuilder, PromptBuilder>();
+        services.Configure<RetrievalOptions>(configuration.GetSection("Retrieval"));
+
 
         return services;
     }
