@@ -4,6 +4,10 @@ public sealed class DocumentEmbedding
 {
     public Guid Id { get; init; } = Guid.NewGuid();
 
+    public Guid DocumentId { get; init; }
+
+    public int ChunkNumber { get; init; }
+
     public required string Content { get; init; }
 
     public required float[] Vector { get; init; }

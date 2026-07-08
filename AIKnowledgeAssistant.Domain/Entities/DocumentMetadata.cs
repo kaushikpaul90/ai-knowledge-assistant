@@ -10,7 +10,5 @@ public sealed class DocumentMetadata
 
     public string Author { get; init; } = "Unknown";
 
-    public int ChunkNumber { get; init; }
-
     public DateTime IndexedAt { get; init; } = DateTime.UtcNow;
 }

@@ -29,13 +29,13 @@ public sealed class DocumentIndexer : IDocumentIndexer
                 {
                     Content = chunk.Content,
                     Vector = embedding.Embedding,
+                    ChunkNumber = chunk.ChunkNumber,
                     Metadata = new DocumentMetadata
                     {
                         DocumentName = request.DocumentName,
                         Department = request.Department,
                         Author = request.Author,
-                        DocumentType = request.DocumentType,
-                        ChunkNumber = chunk.ChunkNumber
+                        DocumentType = request.DocumentType
                     }
                 }
             );

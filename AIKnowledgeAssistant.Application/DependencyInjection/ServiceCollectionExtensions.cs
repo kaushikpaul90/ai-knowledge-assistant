@@ -10,12 +10,10 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services)
     {
         services.AddScoped<IChatService, ChatService>();
-
         services.AddScoped<IEmbeddingService, EmbeddingService>();
-
         services.AddScoped<IDocumentIndexer, DocumentIndexer>();
-
         services.AddScoped<IRagService, RagService>();
+        services.AddScoped<IRetriever, Retriever>();
 
         return services;
     }

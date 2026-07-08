@@ -24,10 +24,10 @@ public sealed class VectorStoreDebugController : ControllerBase
             {
                 Content = "Azure Kubernetes Service",
                 Vector = new float[] { 0.20f, 0.60f },
+                ChunkNumber = 1,
                 Metadata = new DocumentMetadata
                 {
                     DocumentName = "Sample Document",
-                    ChunkNumber = 1,
                     Department = "Engineering",
                     Author = "Kaushik Paul"
                 }
@@ -36,10 +36,10 @@ public sealed class VectorStoreDebugController : ControllerBase
             {
                 Content = "Azure Cosmos DB",
                 Vector = new float[] { -0.30f, 0.10f },
+                ChunkNumber = 2,
                 Metadata = new DocumentMetadata
                 {
                     DocumentName = "Sample Document",
-                    ChunkNumber = 2,
                     Department = "Engineering",
                     Author = "Kaushik Paul"
                 }
@@ -48,10 +48,10 @@ public sealed class VectorStoreDebugController : ControllerBase
             {
                 Content = "Azure Functions",
                 Vector = new float[] { 0.15f, 0.55f },
+                ChunkNumber = 3,
                 Metadata = new DocumentMetadata
                 {
                     DocumentName = "Sample Document",
-                    ChunkNumber = 3,
                     Department = "Engineering",
                     Author = "Kaushik Paul"
                 }
@@ -60,10 +60,10 @@ public sealed class VectorStoreDebugController : ControllerBase
             {
                 Content = "Azure Blob Storage",
                 Vector = new float[] { -0.40f, -0.20f },
+                ChunkNumber = 4,
                 Metadata = new DocumentMetadata
                 {
                     DocumentName = "Sample Document",
-                    ChunkNumber = 4,
                     Department = "Engineering",
                     Author = "Kaushik Paul"
                 }

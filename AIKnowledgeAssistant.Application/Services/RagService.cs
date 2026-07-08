@@ -5,13 +5,20 @@ namespace AIKnowledgeAssistant.Application.Services;
 
 public sealed class RagService : IRagService
 {
+    private readonly IRetriever _retriever;
     private readonly IEmbeddingService _embeddingService;
     private readonly IVectorStore _vectorStore;
     private readonly IPromptBuilder _promptBuilder;
     private readonly IAIClient _aiClient;
 
-    public RagService(IEmbeddingService embeddingService, IVectorStore vectorStore, IPromptBuilder promptBuilder, IAIClient aiClient)
+    public RagService(
+        IRetriever retriever,
+        IEmbeddingService embeddingService,
+        IVectorStore vectorStore,
+        IPromptBuilder promptBuilder,
+        IAIClient aiClient)
     {
+        _retriever = retriever;
         _embeddingService = embeddingService;
         _vectorStore = vectorStore;
         _promptBuilder = promptBuilder;
@@ -24,7 +31,7 @@ public sealed class RagService : IRagService
         var embedding = await _embeddingService.GenerateAsync(new EmbeddingRequest(request.Question));
 
         // Step 2: Retrieve the most relevant chunks
-        var documents = await _vectorStore.SearchAsync(
+        var documents = await _retriever.RetrieveAsync(
             new VectorSearchRequest
             {
                 Embedding = embedding.Embedding,
