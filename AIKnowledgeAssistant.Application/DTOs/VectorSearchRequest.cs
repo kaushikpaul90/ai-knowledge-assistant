@@ -2,6 +2,7 @@ namespace AIKnowledgeAssistant.Application.DTOs;
 
 public sealed class VectorSearchRequest
 {
+    public required string Query { get; init; }
     public required float[] Embedding { get; init; }
 
     public int TopK { get; init; } = 5;

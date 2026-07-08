@@ -54,4 +54,9 @@ public sealed class InMemoryVectorStore : IVectorStore
     {
         return Task.FromResult(_documents.Count());
     }
+
+    public Task<IReadOnlyList<DocumentEmbedding>>GetAllAsync()
+    {
+        return Task.FromResult<IReadOnlyList<DocumentEmbedding>>(_documents);
+    }
 }

@@ -10,4 +10,6 @@ public interface IVectorStore
     Task<IReadOnlyList<SearchResult>> SearchAsync(VectorSearchRequest request);
 
     Task<int> CountAsync();
+
+    Task<IReadOnlyList<DocumentEmbedding>>GetAllAsync();
 }

@@ -91,6 +91,7 @@ public sealed class VectorStoreDebugController : ControllerBase
         var result = await _vectorStore.SearchAsync(
             new VectorSearchRequest
             {
+                Query = "AKS",
                 Embedding = queryEmbedding,
                 TopK = 3
             }

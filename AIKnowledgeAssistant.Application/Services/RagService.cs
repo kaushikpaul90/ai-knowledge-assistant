@@ -7,20 +7,17 @@ public sealed class RagService : IRagService
 {
     private readonly IRetriever _retriever;
     private readonly IEmbeddingService _embeddingService;
-    private readonly IVectorStore _vectorStore;
     private readonly IPromptBuilder _promptBuilder;
     private readonly IAIClient _aiClient;
 
     public RagService(
         IRetriever retriever,
         IEmbeddingService embeddingService,
-        IVectorStore vectorStore,
         IPromptBuilder promptBuilder,
         IAIClient aiClient)
     {
         _retriever = retriever;
         _embeddingService = embeddingService;
-        _vectorStore = vectorStore;
         _promptBuilder = promptBuilder;
         _aiClient = aiClient;
     }
@@ -34,13 +31,14 @@ public sealed class RagService : IRagService
         var documents = await _retriever.RetrieveAsync(
             new VectorSearchRequest
             {
+                Query = request.Question,
                 Embedding = embedding.Embedding,
                 TopK = 5
             }
         );
 
         // Step 3: Build the prompt
-        var prompt = _promptBuilder.BuildPrompt(request.Question, documents.Select(x => x.Document.Content).ToList());
+        var prompt = _promptBuilder.BuildPrompt(request.Question, documents);
 
         // Step 4: Ask the LLM
         var answer = await _aiClient.GetChatCompletionAsync(prompt);
