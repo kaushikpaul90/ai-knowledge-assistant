@@ -1,6 +1,8 @@
+using AIKnowledgeAssistant.Application.DTOs;
+
 namespace AIKnowledgeAssistant.Application.Interfaces;
 
 public interface IDocumentIndexer
 {
-    Task IndexAsync(string document);
+    Task IndexAsync(IndexDocumentRequest request);
 }

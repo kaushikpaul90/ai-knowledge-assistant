@@ -1,4 +1,5 @@
 using System.Reflection.Metadata;
+using AIKnowledgeAssistant.Application.DTOs;
 using AIKnowledgeAssistant.Application.Interfaces;
 using AIKnowledgeAssistant.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;

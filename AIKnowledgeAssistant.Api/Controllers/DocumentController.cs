@@ -1,3 +1,4 @@
+using AIKnowledgeAssistant.Application.DTOs;
 using AIKnowledgeAssistant.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,12 +15,10 @@ public sealed class DocumentController : Controller
         _documentIndexer = documentIndexer;
     }
 
-    public sealed record IndexDocumentRequest(string Content);
-
     [HttpPost]
     public async Task<IActionResult> Index(IndexDocumentRequest request)
     {
-        await _documentIndexer.IndexAsync(request.Content);
+        await _documentIndexer.IndexAsync(request);
         return Ok(new { Message = "Document indexed successfully." });
     }
 }

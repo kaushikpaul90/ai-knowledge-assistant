@@ -17,9 +17,9 @@ public sealed class DocumentIndexer : IDocumentIndexer
         _vectorStore = vectorStore;
     }
 
-    public async Task IndexAsync(string document)
+    public async Task IndexAsync(IndexDocumentRequest request)
     {
-        var chunks = _documentChunker.Chunk(document);
+        var chunks = _documentChunker.Chunk(request.Content);
 
         foreach (var chunk in chunks)
         {
@@ -31,10 +31,11 @@ public sealed class DocumentIndexer : IDocumentIndexer
                     Vector = embedding.Embedding,
                     Metadata = new DocumentMetadata
                     {
-                        DocumentName = "Sample Document",
-                        ChunkNumber = chunk.ChunkNumber,
-                        Department = "Engineering",
-                        Author = "Kaushik Paul"
+                        DocumentName = request.DocumentName,
+                        Department = request.Department,
+                        Author = request.Author,
+                        DocumentType = request.DocumentType,
+                        ChunkNumber = chunk.ChunkNumber
                     }
                 }
             );
