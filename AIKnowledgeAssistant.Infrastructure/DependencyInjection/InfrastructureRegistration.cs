@@ -11,24 +11,17 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AIKnowledgeAssistant.Infrastructure.DependencyInjection;
 
-public static class ServiceCollectionExtensions
+public static class InfrastructureRegistration
 {
     public static IServiceCollection AddInfrastructure(
         this IServiceCollection services,
         IConfiguration configuration
     )
     {
-        services.Configure<AzureOpenAIOptions>(
-            configuration.GetSection(AzureOpenAIOptions.SectionName)
-        );
-
-        services.AddSingleton<IAIClient, AzureOpenAIService>();
-        services.AddSingleton<IVectorStore, InMemoryVectorStore>();
-        services.AddSingleton<ISimilarityCalculator, CosineSimilarityCalculator>();
-        services.AddSingleton<IDocumentChunker, DocumentChunker>();
-        services.AddSingleton<IPromptBuilder, PromptBuilder>();
-        services.Configure<RetrievalOptions>(configuration.GetSection("Retrieval"));
-        services.AddSingleton<IKeywordSearchService, KeywordSearchService>();
+        services.AddAzureOpenAI(configuration);
+        services.AddAzureSearch(configuration);
+        services.AddDocumentProcessing();
+        services.AddVectorStores(configuration);
 
         return services;
     }
