@@ -13,7 +13,7 @@ public sealed class Retriever : IRetriever
         _vectorStore = vectorStore;
     }
 
-    public async Task<IReadOnlyList<DocumentEmbedding>>RetrieveAsync(VectorSearchRequest request)
+    public async Task<IReadOnlyList<SearchResult>>RetrieveAsync(VectorSearchRequest request)
     {
         return await _vectorStore.SearchAsync(request);
     }

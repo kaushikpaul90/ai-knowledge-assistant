@@ -40,12 +40,12 @@ public sealed class RagService : IRagService
         );
 
         // Step 3: Build the prompt
-        var prompt = _promptBuilder.BuildPrompt(request.Question, documents.Select(x => x.Content).ToList());
+        var prompt = _promptBuilder.BuildPrompt(request.Question, documents.Select(x => x.Document.Content).ToList());
 
         // Step 4: Ask the LLM
         var answer = await _aiClient.GetChatCompletionAsync(prompt);
 
         // Step 5: Return answer + sources
-        return new RagResponse(answer, documents.Select(x => x.Content).ToList());
+        return new RagResponse(answer, documents.Select(x => x.Document.Content).ToList());
     }
 }

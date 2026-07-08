@@ -18,7 +18,7 @@ public sealed class InMemoryVectorStore : IVectorStore
         return Task.CompletedTask;
     }
 
-    public Task<IReadOnlyList<DocumentEmbedding>> SearchAsync(VectorSearchRequest request)
+    public Task<IReadOnlyList<SearchResult>> SearchAsync(VectorSearchRequest request)
     {
         IEnumerable<DocumentEmbedding> query = _documents;
 
@@ -40,10 +40,14 @@ public sealed class InMemoryVectorStore : IVectorStore
             })
             .OrderByDescending(x => x.Score)
             .Take(request.TopK)
-            .Select(x => x.Document)
+            .Select(x => new SearchResult
+                {
+                    Document=x.Document,
+                    Score=x.Score
+                })
             .ToList();
 
-        return Task.FromResult<IReadOnlyList<DocumentEmbedding>>(result);
+        return Task.FromResult<IReadOnlyList<SearchResult>>(result);
     }
 
     public Task<int> CountAsync()

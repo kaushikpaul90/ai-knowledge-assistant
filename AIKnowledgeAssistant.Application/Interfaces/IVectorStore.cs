@@ -7,7 +7,7 @@ public interface IVectorStore
 {
     Task AddAsync(DocumentEmbedding document);
     
-    Task<IReadOnlyList<DocumentEmbedding>> SearchAsync(VectorSearchRequest request);
+    Task<IReadOnlyList<SearchResult>> SearchAsync(VectorSearchRequest request);
 
     Task<int> CountAsync();
 }

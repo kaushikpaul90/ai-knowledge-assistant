@@ -98,7 +98,7 @@ public sealed class VectorStoreDebugController : ControllerBase
         return Ok(
             result.Select(x => new
             {
-                x.Content
+                x.Document.Content
             })
         );
     }

@@ -5,5 +5,5 @@ namespace AIKnowledgeAssistant.Application.Interfaces;
 
 public interface IRetriever
 {
-    Task<IReadOnlyList<DocumentEmbedding>> RetrieveAsync(VectorSearchRequest request);
+    Task<IReadOnlyList<SearchResult>> RetrieveAsync(VectorSearchRequest request);
 }
