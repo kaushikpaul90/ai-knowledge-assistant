@@ -29,9 +29,12 @@ public sealed class DocumentIndexer : IDocumentIndexer
                 {
                     Content = chunk.Content,
                     Vector = embedding.Embedding,
-                    Metadata = new Dictionary<string, string>
+                    Metadata = new DocumentMetadata
                     {
-                        { "ChunkNumber", chunk.ChunkNumber.ToString() }
+                        DocumentName = "Sample Document",
+                        ChunkNumber = chunk.ChunkNumber,
+                        Department = "Engineering",
+                        Author = "Kaushik Paul"
                     }
                 }
             );

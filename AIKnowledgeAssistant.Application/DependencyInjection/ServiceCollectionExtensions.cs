@@ -15,6 +15,8 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IDocumentIndexer, DocumentIndexer>();
 
+        services.AddScoped<IRagService, RagService>();
+
         return services;
     }
 }

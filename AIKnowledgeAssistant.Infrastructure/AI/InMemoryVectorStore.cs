@@ -1,3 +1,4 @@
+using AIKnowledgeAssistant.Application.DTOs;
 using AIKnowledgeAssistant.Application.Interfaces;
 using AIKnowledgeAssistant.Domain.Entities;
 
@@ -17,16 +18,28 @@ public sealed class InMemoryVectorStore : IVectorStore
         return Task.CompletedTask;
     }
 
-    public Task<IReadOnlyList<DocumentEmbedding>> SearchAsync(float[] embedding, int topK = 5)
+    public Task<IReadOnlyList<DocumentEmbedding>> SearchAsync(VectorSearchRequest request)
     {
+        IEnumerable<DocumentEmbedding> query = _documents;
+
+        if (!string.IsNullOrWhiteSpace(request.Department))
+        {
+            query = query.Where(x => x.Metadata.Department.Equals(request.Department, StringComparison.OrdinalIgnoreCase));
+        }
+
+        if (!string.IsNullOrWhiteSpace(request.DocumentName))
+        {
+            query = query.Where(x => x.Metadata.DocumentName.Equals(request.DocumentName, StringComparison.OrdinalIgnoreCase));
+        }
+
         var result =
-            _documents.Select(document => new
+            query.Select(document => new
             {
                 Document = document,
-                Score = _similarityCalculator.Calculate(embedding, document.Vector)
+                Score = _similarityCalculator.Calculate(request.Embedding, document.Vector)
             })
             .OrderByDescending(x => x.Score)
-            .Take(topK)
+            .Take(request.TopK)
             .Select(x => x.Document)
             .ToList();
 

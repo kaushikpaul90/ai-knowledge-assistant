@@ -22,22 +22,50 @@ public sealed class VectorStoreDebugController : ControllerBase
             new DocumentEmbedding
             {
                 Content = "Azure Kubernetes Service",
-                Vector = new float[] { 0.20f, 0.60f }
+                Vector = new float[] { 0.20f, 0.60f },
+                Metadata = new DocumentMetadata
+                {
+                    DocumentName = "Sample Document",
+                    ChunkNumber = 1,
+                    Department = "Engineering",
+                    Author = "Kaushik Paul"
+                }
             },
             new DocumentEmbedding
             {
                 Content = "Azure Cosmos DB",
-                Vector = new float[] { -0.30f, 0.10f }
+                Vector = new float[] { -0.30f, 0.10f },
+                Metadata = new DocumentMetadata
+                {
+                    DocumentName = "Sample Document",
+                    ChunkNumber = 2,
+                    Department = "Engineering",
+                    Author = "Kaushik Paul"
+                }
             },
             new DocumentEmbedding
             {
                 Content = "Azure Functions",
-                Vector = new float[] { 0.15f, 0.55f }
+                Vector = new float[] { 0.15f, 0.55f },
+                Metadata = new DocumentMetadata
+                {
+                    DocumentName = "Sample Document",
+                    ChunkNumber = 3,
+                    Department = "Engineering",
+                    Author = "Kaushik Paul"
+                }
             },
             new DocumentEmbedding
             {
                 Content = "Azure Blob Storage",
-                Vector = new float[] { -0.40f, -0.20f }
+                Vector = new float[] { -0.40f, -0.20f },
+                Metadata = new DocumentMetadata
+                {
+                    DocumentName = "Sample Document",
+                    ChunkNumber = 4,
+                    Department = "Engineering",
+                    Author = "Kaushik Paul"
+                }
             }
         };
 
@@ -59,7 +87,13 @@ public sealed class VectorStoreDebugController : ControllerBase
     public async Task<IActionResult> SearchAsync()
     {
         var queryEmbedding = new float[] { 0.18f, 0.58f };
-        var result = await _vectorStore.SearchAsync(queryEmbedding, topK: 3);
+        var result = await _vectorStore.SearchAsync(
+            new VectorSearchRequest
+            {
+                Embedding = queryEmbedding,
+                TopK = 3
+            }
+        );
         return Ok(
             result.Select(x => new
             {

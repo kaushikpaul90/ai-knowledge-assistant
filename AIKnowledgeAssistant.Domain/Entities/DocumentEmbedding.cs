@@ -8,5 +8,5 @@ public sealed class DocumentEmbedding
 
     public required float[] Vector { get; init; }
 
-    public Dictionary<string, string> Metadata { get; init; } = new();
+    public required DocumentMetadata Metadata { get; init; }
 }

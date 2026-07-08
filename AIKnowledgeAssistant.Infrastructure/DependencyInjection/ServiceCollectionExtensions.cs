@@ -2,6 +2,7 @@ using AIKnowledgeAssistant.Application.Interfaces;
 using AIKnowledgeAssistant.Infrastructure.AI;
 using AIKnowledgeAssistant.Infrastructure.Configuration;
 using AIKnowledgeAssistant.Infrastructure.DocumentProcessing;
+using AIKnowledgeAssistant.Infrastructure.Prompting;
 using AIKnowledgeAssistant.Infrastructure.Similarity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +24,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IVectorStore, InMemoryVectorStore>();
         services.AddSingleton<ISimilarityCalculator, CosineSimilarityCalculator>();
         services.AddSingleton<IDocumentChunker, DocumentChunker>();
+        services.AddSingleton<IPromptBuilder, PromptBuilder>();
 
         return services;
     }
